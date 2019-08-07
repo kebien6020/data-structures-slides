@@ -57,7 +57,7 @@
 							struct Persona {
 								array<char, 10> nombre;
 								int edad;
-							}
+							};
 							```
 							Ver [std::array](https://en.cppreference.com/w/cpp/container/array).
 							<!-- .element: class="small" -->
@@ -110,7 +110,7 @@
 						struct Persona {
 							array<char, 10> nombre;
 							int edad;
-						}
+						};
 						```
 
 					</textarea>
@@ -130,7 +130,7 @@
 					<iframe width="800px" height="400px" src="https://godbolt.org/e#g:!((g:!((g:!((h:codeEditor,i:(j:1,lang:c%2B%2B,source:'%23include+%3Carray%3E%0A%23include+%3Ciostream%3E%0A%0Ausing+namespace+std%3B%0A%0Astruct+Persona+%7B%0A++array%3Cchar,+10%3E+nombre%3B%0A++int+edad%3B%0A%7D%3B%0A%0Aint+main()+%7B%0A++cout+%3C%3C+sizeof(Persona)+%3C%3C+!'%5Cn!'%3B%0A%7D%3B'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:g91,compilerOutShown:'0',execArgs:'',execStdin:'',lang:c%2B%2B,libs:!(),options:'-Os+-std%3Dc%2B%2B17',source:1,stdinPanelShown:'1'),l:'5',n:'0',o:'x86-64+gcc+9.1+Executor+(Editor+%231)+C%2B%2B',t:'0')),header:(),k:50,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
 				</section>
 
-				<section data-markdown id="access">
+				<section data-markdown id="acceso">
 					<textarea data-template>
 						## Acceso
 
@@ -140,6 +140,209 @@
 						```
 
 					</textarea>
+				</section>
+
+				<section data-markdown id="uso">
+					<textarea data-template>
+						## Uso
+
+						- Agrupar datos relacionados.
+						- Expresar en el codigo terminología del dominio del problema.
+						- struct es equivalente a class en C++.
+
+					</textarea>
+				</section>
+
+				<section>
+					<section data-markdown id="uso-fake">
+						<textarea data-template>
+							## Uso (según el PDF del módulo)
+
+							### Estructuras anidadas.
+							```cpp
+							struct Ubicacion {
+								string pais; string ciudad; string direccion;
+							};
+							struct Persona {
+								string nombre;
+								int edad;
+								Ubicacion vivienda;
+								Ubicacion trabajo;
+							};
+							```
+						</textarea>
+					</section>
+					<section data-markdown id="uso-fake-2">
+						<textarea data-template>
+							### Arreglos de estructuras
+							```cpp
+							array<Persona, 4> familia;
+							```
+						</textarea>
+					</section>
+
+					<section data-markdown id="uso-fake-3">
+						<textarea data-template>
+							### Arreglos como miembros de una struct
+							```cpp
+							struct Persona {
+								array<char, 10> nombre;
+								int edad;
+							};
+							```
+						</textarea>
+					</section>
+				</section>
+
+				<section data-markdown id="wth">
+					<textarea data-template>
+						## El significado de cada tipo de estructura de datos
+
+						???
+					</textarea>
+				</section>
+
+				<section data-markdown id="ejemplo">
+					<textarea data-template>
+						## Ejemplo
+
+						???
+					</textarea>
+				</section>
+
+				<section id="punteros">
+					<h2>Punteros</h2>
+
+					<ul>
+						<li class="fragment" data-fragment-index="1">
+							<span class="fragment" data-fragment-index="1">Un numero</span>
+							<span class="fragment" data-fragment-index="2">que ha de ser interpretado como una dirección de memoria.</span>
+						</li>
+						<li class="fragment" data-fragment-index="3">
+							Tiene asociado un tipo.
+						</li>
+					</ul>
+				</section>
+
+				<section id="punteros-lang">
+					<h2>Punteros (lenguajes)</h2>
+
+					<table>
+						<thead>
+							<tr>
+								<th class="fragment" data-fragment-index="1">Lenguajes que los usan</th>
+								<th class="fragment" data-fragment-index="5">Lenguajes que no los usan</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="fragment" data-fragment-index="2">C</td>
+								<td class="fragment" data-fragment-index="6">C#</td>
+							</tr>
+							<tr>
+								<td class="fragment" data-fragment-index="2">C++</td>
+								<td class="fragment" data-fragment-index="6">Java</td>
+							</tr>
+							<tr>
+								<td class="fragment" data-fragment-index="3">Objective C</td>
+								<td class="fragment" data-fragment-index="6">Javascript</td>
+							</tr>
+							<tr>
+								<td class="fragment" data-fragment-index="4">Go</td>
+								<td class="fragment" data-fragment-index="6">Python</td>
+							</tr>
+							<tr>
+								<td class="fragment" data-fragment-index="4">Julia</td>
+								<td class="fragment" data-fragment-index="6">Haskell</td>
+							</tr>
+							<tr>
+								<td class="fragment" data-fragment-index="4">Rust</td>
+								<td class="fragment" data-fragment-index="6">Lua</td>
+							</tr>
+							<tr>
+								<td class="fragment" data-fragment-index="4">D</td>
+								<td class="fragment" data-fragment-index="6">Visual Basic</td>
+							</tr>
+							<tr>
+								<td class="fragment" data-fragment-index="4">Pascal</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+
+				<section data-markdown id="punteros-vs-1">
+					<textarea data-template>
+						## Punteros (C vs C++)
+
+						Pasar un array en C
+						```c
+						int suma_c(int *arr, int size);
+						// al llamarlo
+						int mi_array[] = {1, 2, 3};
+						suma_c(mi_array, 5); // ups, segfault
+						suma_c(mi_array, sizeof(mi_array) / sizeof(mi_array[0])); // largo
+						```
+
+						Pasar un array en C++
+						```cpp
+						template<int N>
+						int suma(const array<int, N>& arr);
+						// al llamarlo
+						array<int> mi_array {1, 2, 3};
+						suma(mi_array); // no hay forma de pasar el tamaño incorrecto
+						```
+					</textarea>
+				</section>
+
+				<section data-markdown id="punteros-vs-2">
+					<textarea data-template>
+						## Punteros (C vs C++)
+
+						Memoria dinámica
+						```c
+						int tamano = 10; // asume que viene del usuario
+						int* mi_array = (int*) malloc(tamano * sizeof(int));
+
+						// usar mi_array
+
+						free(mi_array); // no lo olvides o vas a fugar memoria
+						```
+
+						Memoria dinámica en C++
+						```cpp
+						int tamano = 10; // asume que viene del usuario
+						vector<int> mi_vec(tamano); // reserva 10 pero puede crecer
+
+						// usar mi_vec
+						```
+					</textarea>
+				</section>
+
+				<section data-markdown id="punteros-vs-3">
+					<script type="text/template">
+						## Punteros (C vs C++)
+
+						Pasar una funcion en C
+						```c
+						int contar_si(int *arr, int size, bool (*pred)(int)) {
+							int suma = 0;
+							for (int i = 0; i < size; ++i)
+								if (pred(arr[i])) suma++;
+							return suma;
+						}
+						```
+
+						Pasar una funcion en C++
+						```cpp
+						template <typename Cont, typename Func>
+						int contar_si(const Cont& cont, Func pred) {
+							int suma = 0;
+							for (auto& elem : cont)
+								if (pred(elem)) suma++;
+							return suma;
+						}
+						```
+					</script>
 				</section>
 			</div>
 		</div>
