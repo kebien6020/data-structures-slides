@@ -13,6 +13,9 @@
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/monokai.css">
 
+		<!-- Overrides -->
+		<link rel="stylesheet" href="lib/css/kevin.css">
+
 		<!-- Printing and PDF exports -->
 		<script>
 			var link = document.createElement( 'link' );
@@ -44,6 +47,100 @@
 						> miembros se identifica por un nombre.
 					</textarea>
 				</section>
+
+				<section>
+					<section data-markdown id="declaracion">
+						<textarea data-template>
+							## Declaración
+
+							```cpp
+							struct Persona {
+								array<char, 10> nombre;
+								int edad;
+							}
+							```
+							Ver [std::array](https://en.cppreference.com/w/cpp/container/array).
+							<!-- .element: class="small" -->
+
+						</textarea>
+					</section>
+
+					<section data-markdown id="declaracion-nota">
+						<textarea data-template>
+							## Nota
+
+							No voy a colocar los `#include` necesarios para que los ejemplos
+							funcionen.
+
+							Tambien asumire que estoy usando:
+
+							```cpp
+							using namespace std;
+							```
+						</textarea>
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown id="inicializacion">
+						<textarea data-template>
+							## Inicialización
+
+							```cpp
+							Persona kevin {"Kevin", 23};
+							// o
+							auto kevin = Persona{"Kevin", 23};
+							```
+							Ver [aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization).
+							<!-- .element: class="small" -->
+
+						</textarea>
+					</section>
+					<section>
+						<iframe width="800px" height="400px" src="https://godbolt.org/e#g:!((g:!((g:!((h:codeEditor,i:(j:1,lang:c%2B%2B,source:'%23include+%3Carray%3E%0A%23include+%3Ciostream%3E%0A%0Ausing+namespace+std%3B%0A%0Astruct+Persona+%7B%0A++array%3Cchar,+10%3E+nombre%3B%0A++int+edad%3B%0A%7D%3B%0A%0Aint+main()+%7B%0A++Persona+kevin+%7B%22Kevin%22,+23%7D%3B%0A++cout+%3C%3C+kevin.nombre.data()+%3C%3C+!'%5Cn!'%3B%0A%7D%3B'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:g91,compilerOutShown:'0',execArgs:'',execStdin:'',lang:c%2B%2B,libs:!(),options:'-Os+-std%3Dc%2B%2B17',source:1,stdinPanelShown:'1'),l:'5',n:'0',o:'x86-64+gcc+9.1+Executor+(Editor+%231)+C%2B%2B',t:'0')),header:(),k:50,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
+					</section>
+				</section>
+
+				<section data-markdown id="tamano">
+					<textarea data-template>
+						## Tamaño
+
+						```cpp
+						// Recordemos
+						struct Persona {
+							array<char, 10> nombre;
+							int edad;
+						}
+						```
+
+					</textarea>
+				</section>
+
+				<section data-markdown id="tamano-illust">
+					<textarea data-template>
+						## Tamaño (gráficamente)
+
+						![](lib/tamano-illust.png)
+
+					</textarea>
+				</section>
+
+				<section id="tamano-prove">
+					<h2>Tamaño (demostración)</h2>
+					<iframe width="800px" height="400px" src="https://godbolt.org/e#g:!((g:!((g:!((h:codeEditor,i:(j:1,lang:c%2B%2B,source:'%23include+%3Carray%3E%0A%23include+%3Ciostream%3E%0A%0Ausing+namespace+std%3B%0A%0Astruct+Persona+%7B%0A++array%3Cchar,+10%3E+nombre%3B%0A++int+edad%3B%0A%7D%3B%0A%0Aint+main()+%7B%0A++cout+%3C%3C+sizeof(Persona)+%3C%3C+!'%5Cn!'%3B%0A%7D%3B'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:g91,compilerOutShown:'0',execArgs:'',execStdin:'',lang:c%2B%2B,libs:!(),options:'-Os+-std%3Dc%2B%2B17',source:1,stdinPanelShown:'1'),l:'5',n:'0',o:'x86-64+gcc+9.1+Executor+(Editor+%231)+C%2B%2B',t:'0')),header:(),k:50,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
+				</section>
+
+				<section data-markdown id="access">
+					<textarea data-template>
+						## Acceso
+
+						```cpp
+						cout << kevin.edad << '\n';
+						cout << kevin.nombre.data() << '\n';
+						```
+
+					</textarea>
+				</section>
 			</div>
 		</div>
 
@@ -59,7 +156,8 @@
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
 					{ src: 'plugin/highlight/highlight.js', async: true }
-				]
+				],
+				hash: true,
 			});
 		</script>
 	</body>
