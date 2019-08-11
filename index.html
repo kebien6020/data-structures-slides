@@ -194,20 +194,273 @@
 					</section>
 				</section>
 
-				<section data-markdown id="wth">
+				<section data-markdown id="tipos">
 					<textarea data-template>
-						## El significado de cada tipo de estructura de datos
+						## Tipos de Estructras de Datos
 
-						???
+						- Arreglos
+						- Matrices (Arreglo de arreglos)
+						- Listas
+						- Pilas
+						- Colas
+						- Arboles
+						- Grafos
 					</textarea>
 				</section>
 
-				<section data-markdown id="ejemplo">
+				<section data-markdown id="tipo-arreglo">
 					<textarea data-template>
-						## Ejemplo
+						### Arreglos
 
-						???
+						- Conjunto de elementos
+						- Contiguos en memoria
+						- Tamaño predefinido
+
+						```cpp
+						array<string, 2> nombres {"Kevin", "Andres"};
+						for (auto& nombre : nombres)
+							cout << "Hola " << nombre << "!\n";
+						```
+
+						Salida del programa
+						```
+						Hola Kevin!
+						Hola Andres!
+						```
 					</textarea>
+				</section>
+
+				<section>
+					<section data-markdown id="tipo-matriz">
+						<textarea data-template>
+							### Matrices
+
+							```cpp
+							array<array<double, 3>, 2> notas {{
+								{4.9, 4.8, 5.0},
+								{4.8, 4.7, 4.9},
+							}};
+							for (int i = 0; i < notas.size(); ++i) {
+								cout << "Notas del estudiante " << i + 1 << ": ";
+								for (auto& nota : notas[i])
+									cout << nota << " ";
+								cout << '\n';
+							}
+							```
+
+							Salida del programa
+							```sh
+							Notas del estudiante 1: 4.9 4.8 5
+							Notas del estudiante 2: 4.8 4.7 4.9
+							```
+						</textarea>
+					</section>
+
+					<section data-markdown id="tipo-matriz-mejor">
+						<textarea data-template>
+							```cpp
+							struct Estudiante {
+								string nombre;
+								array<double, 3> notas;
+							};
+
+							array<Estudiante, 2> estudiantes {{
+								{"Kevin", {4.9, 4.8, 5.0}},
+								{"Andres", {4.8, 4.7, 4.9}},
+							}};
+
+							for (auto& est : estudiantes) {
+								cout << "Notas de " << est.nombre << ": ";
+								for (auto& nota : est.notas)
+									cout << nota << " ";
+								cout << '\n';
+							}
+							```
+
+							Salida del programa
+							```sh
+							Notas de Kevin: 4.9 4.8 5
+							Notas de Andres: 4.8 4.7 4.9
+							```
+						</textarea>
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown id="tipo-lista">
+						<textarea data-template>
+							### Listas (segun Java)
+
+							En C++ el equivalente son los requerimientos para
+							[SequenceContainer](https://en.cppreference.com/w/cpp/named_req/SequenceContainer)
+
+							```cpp
+							vector<string> nombres;
+							nombres.push_back("Kevin");
+							nombres.push_back("Andres");
+
+							for (auto& nombre : nombres)
+								cout << "Hola " << nombre << "!\n";
+							```
+
+							Salida del programa
+							```sh
+							Hola Kevin!
+							Hola Andres!
+							```
+						</textarea>
+					</section>
+					<section id="tipo-lista-demo">
+						<iframe width="800px" height="400px" src="https://godbolt.org/e#g:!((g:!((g:!((h:codeEditor,i:(j:2,lang:c%2B%2B,source:'%23include+%3Ciostream%3E%0A%23include+%3Clist%3E%0A%23include+%3Cstring%3E%0A%23include+%3Cvector%3E%0A%0Ausing+namespace+std%3B%0A%0Aint+main()+%7B%0A++++vector%3Cstring%3E+nombres%3B%0A++++nombres.push_back(%22Kevin%22)%3B%0A++++nombres.push_back(%22Andres%22)%3B%0A%0A++++for+(auto%26+nombre+:+nombres)%0A++++++++cout+%3C%3C+%22Hola+%22+%3C%3C+nombre+%3C%3C+%22!!%5Cn%22%3B%0A%7D'),l:'5',n:'0',o:'C%2B%2B+source+%232',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:g91,compilerOutShown:'0',execArgs:'',execStdin:'',lang:c%2B%2B,libs:!(),options:'',source:2,stdinPanelShown:'1'),l:'5',n:'0',o:'x86-64+gcc+9.1+Executor+(Editor+%232)+C%2B%2B',t:'0')),header:(),k:50,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
+					</section>
+				</section>
+
+				<section data-markdown id="tipo-pila">
+					<textarea data-template>
+						### Pilas
+
+						```cpp
+						// Reversar un string
+						stack<char, vector<char>> caracteres;
+						caracteres.push('a');
+						caracteres.push('m');
+						caracteres.push('o');
+						caracteres.push('r');
+
+						while(!caracteres.empty()) {
+							cout << caracteres.top();
+							caracteres.pop();
+						}
+						```
+
+						Salida del programa
+						```sh
+						roma
+						```
+					</textarea>
+				</section>
+
+				<section data-markdown id="tipo-cola">
+					<textarea data-template>
+						### Colas
+
+						```cpp
+						queue<string, list<string>> personas;
+						personas.push("Andres");
+						personas.push("Blanca");
+						personas.push("Carolina");
+
+						while(!personas.empty()) {
+							cout << personas.front() << '\n'; // Atender a la persona
+							personas.pop();
+						}
+						```
+
+						Salida del programa
+						```sh
+						Andres
+						Blanca
+						Carolina
+						```
+					</textarea>
+				</section>
+
+				<section id="tipo-arbol">
+					<style>
+						.container{
+						    display: flex;
+						}
+						.col{
+						    flex: 1;
+						}
+						#tipo-arbol img {
+							border: none !important;
+							background-color: transparent !important;
+							box-shadow: none !important;
+						}
+						#tipo-arbol pre code {
+							max-height: 600px;
+						}
+					</style>
+
+					<h3>Arboles</h3>
+					<div class="container">
+						<div class="col" data-markdown>
+							<textarea data-template>
+								```cpp
+								// Arbol binario (no ordenado)
+								template<typename T>
+								struct Nodo {
+									T datos;
+									Nodo* izquierdo = nullptr;
+									Nodo* derecho = nullptr;
+								};
+
+								using NodoJ = Nodo<string>;
+
+								NodoJ jefe {"Andres"};
+
+								NodoJ sub1 {"Blanca"};
+								jefe.izquierdo = &amp;sub1;
+
+								NodoJ sub2 {"Carolina"};
+								jefe.derecho = &amp;sub2;
+
+								NodoJ subsub {"David"};
+								sub1.derecho = &amp;subsub;
+								```
+							</textarea>
+						</div>
+						<div class="col">
+								<img src="lib/arbol.png">
+						</div>
+					</div>
+				</section>
+
+				<section id="tipo-grafo">
+					<style>
+						#tipo-grafo img {
+							border: none !important;
+							background-color: transparent !important;
+							box-shadow: none !important;
+						}
+						#tipo-grafo pre code {
+							max-height: 600px;
+						}
+					</style>
+
+					<h3>Grafos</h3>
+					<div class="container">
+						<div class="col" data-markdown>
+							<textarea data-template>
+								```cpp
+								template <typename T>
+								struct Nodo {
+									T data;
+									vector<Nodo*> aristas;
+
+									void conectar(Nodo* otro)
+									{
+										aristas.push_back(otro);
+									}
+								};
+
+								Nodo<int> n1{1}, n2{2},
+								          n3{3}, n4{4};
+								n1.conectar(&n2);
+								n1.conectar(&n4);
+								n2.conectar(&n4);
+								n3.conectar(&n1);
+								n3.conectar(&n2);
+								n4.conectar(&n3);
+
+								```
+							</textarea>
+						</div>
+						<div class="col">
+								<img src="lib/grafo.png">
+						</div>
+					</div>
 				</section>
 
 				<section id="punteros">
