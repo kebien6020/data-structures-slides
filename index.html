@@ -529,242 +529,32 @@
 					<iframe width="800px" height="400px" src="https://godbolt.org/e#z:OYLghAFBqd5QCxAYwPYBMCmBRdBLAF1QCcAaPECAKxACZSAbAQwDtRkBSWgIS%2B9IDOqAK7FkmEAHIuAZjwtkDYVgDUHGQGEmDYCUIIAtuuwcADAEFZ8xcsxrNTYsSYBPY2cu05CpavUa8VAECYkwmIxkTCysfW3sNYKZkAGt3aK9rXzt/YOJ5YDTLCwJMAwAHZhL/AhcyzBZwuw1UFgJSFRq6hoM7ABVCgCNUVAYVNFa8eswIceCVZtauADYx9tmCFX7aFcwGUoBKNQB2XgsVc5VQglEWFWD0EBAAM3l0CHvHgcxgeRn99o%2BIHqb2Q/xUuwOKjAYHUABE7gQHkCWCD9upTpYjrCPB4SuVKphqrV6o15i02h1id0%2BoUmMIiCpXnhxDMWnMFgRlqsxmyNlsdnsDIcOCcPBcVHSGYR7PDAS8Ue9EZ9vr9QQClcjUe0IUL0WKLlcbgikfhEgppoCvj8WH92oQ0TIMSLsdELAB6N0eD0qACSLGZgRUqmYKgYqB%2ByCYXs9rvMQxGl0wADc8AJHAB9AbaVjiJjoVCslhzQG5fJc%2BohPNMYWis4XdbGx6OZwuUOpghMdNMAahGXHbhgaQnQftQccACsA8ko8kEDHWL1dfODcBzdcbcS6eQkycTD7IqnzpHUOk49hx8H%2B3n2MdOKXjZAiRS/mQCEcxhUZTwzEXRXM4qeEgVAgSVUC5ZAVBAcFWmcdBq37fVxXOPAnmA8YCEmFhpgYdtO27UI1n2GsMSQ0jP2/JgADoymEAQED%2BX8yOOeFdgEOwULQ8lMOw3Ctx3ZxCOIxCmJ5IsNlAz8gj7JkWRwzdt0wXdCMYkTkNQiAv2YSiBDwAAvaZhUiFRTDUbYuQgOSOy7HtCUnMoggneE4ThcitKIMoICIoT71U85NKo%2ByPIdEjfOdcEGDYhCfN8w1iFuJ5tDYlTVOdYTxVS%2B8Mr/cVYtufztL0gyZRc0xfyyjwGwkzAqFKCpUAARn3WhaAPCdeDPA9PNShdmt/Sr6VQcEavxVBaCalrJ1ahdRSxfYIEcrgWtvWN5A2AwmF%2Bbz/3rXkJQG6DKzgvtqtqsN6rK%2B8OIgUIUzTYhM2zc08wLCtYOrLamMBNB6XifwDre37NFMsaAFpgcBjRge4R7c3zCcNBYRbkuY8LIta6Lzi%2BkQNn8P7XqrCHwbBxbCcWn0DCzZgnrh8cEaR5btvOcqsUkf4GCkcdpxYKRTGnVApA0Pg%2BDuEQxGyLxaGnAgedZ/5khAcdTEYKQABYuZl0h%2BckacBBAJXpckXn/jgWAkEwAAPTBkAGsgKBA4hgAEAAFVhdgAZQQVAAHduckerpzQcoKIwloXawhgPe933edIQPNMUkBgAATnq2PUCDvZiAAeXpSOfY1i2rfMB3de10hC%2BQN3EXkKRpyp9ghZ4Rg8AGXXIH%2BVAyhDospBB%2B44U4Hg%2BHqo4VBBrOBB10XxDoQRq5YMP3c9/O/dZ5XJE50ho75qRzYADiWEGlhVlRgGQCCk8oxrsEt62iGIYDcEIIDZFoQ5BaHngpZlojSAQMIsDEEoHLBWSt2aSDVqQAwIB6qmCVtvTWtdBB61IAbI2bMpCSy3hrLW39Day1IEmRSOkWggBVkAA%3D%3D%3D"></iframe>
 				</section>
 
-				<section data-markdown id="acceso">
+				<section data-markdown id="arbol">
 					<textarea data-template>
-						## Acceso
+						## Arbol
 
-						```cpp
-						cout << kevin.edad << '\n';
-						cout << kevin.nombre.data() << '\n';
-						```
-
+						- Estructura no lineal
+						- Jerárquica
+						- Puede ser definido recursivamente como una colección de nodos (empezando en el nodo raiz).
+						- Cada nodo es una estructura de datos con un valor y una lista de nodos.
 					</textarea>
 				</section>
 
-				<section data-markdown id="uso">
-					<textarea data-template>
-						## Uso
+				<section id="arbol-ejemplo">
 
-						- Agrupar datos relacionados.
-						- Expresar en el codigo terminología del dominio del problema.
-						- struct es equivalente a class en C++.
 
-					</textarea>
-				</section>
+					<h3>Ejemplo</h3>
+					<div class="container tree-example">
+						<div class="col">
+							<input id="new-value">
+							<button id="add">Añadir</button>
+							<button id="del">Eliminar</button>
+						</div>
+						<div class="col out">
 
-				<section>
-					<section data-markdown id="uso-fake">
-						<textarea data-template>
-							## Uso (según el PDF del módulo)
+						</div>
+					</div>
 
-							### Estructuras anidadas.
-							```cpp
-							struct Ubicacion {
-								string pais; string ciudad; string direccion;
-							};
-							struct Persona {
-								string nombre;
-								int edad;
-								Ubicacion vivienda;
-								Ubicacion trabajo;
-							};
-							```
-						</textarea>
-					</section>
-					<section data-markdown id="uso-fake-2">
-						<textarea data-template>
-							### Arreglos de estructuras
-							```cpp
-							array<Persona, 4> familia;
-							```
-						</textarea>
-					</section>
-
-					<section data-markdown id="uso-fake-3">
-						<textarea data-template>
-							### Arreglos como miembros de una struct
-							```cpp
-							struct Persona {
-								array<char, 10> nombre;
-								int edad;
-							};
-							```
-						</textarea>
-					</section>
-				</section>
-
-				<section data-markdown id="tipos">
-					<textarea data-template>
-						## Tipos de Estructras de Datos
-
-						- Arreglos
-						- Matrices (Arreglo de arreglos)
-						- Listas
-						- Pilas
-						- Colas
-						- Arboles
-						- Grafos
-					</textarea>
-				</section>
-
-				<section data-markdown id="tipo-arreglo">
-					<textarea data-template>
-						### Arreglos
-
-						- Conjunto de elementos
-						- Contiguos en memoria
-						- Tamaño predefinido
-
-						```cpp
-						array<string, 2> nombres {"Kevin", "Andres"};
-						for (auto& nombre : nombres)
-							cout << "Hola " << nombre << "!\n";
-						```
-
-						Salida del programa
-						```
-						Hola Kevin!
-						Hola Andres!
-						```
-					</textarea>
-				</section>
-
-				<section>
-					<section data-markdown id="tipo-matriz">
-						<textarea data-template>
-							### Matrices
-
-							```cpp
-							array<array<double, 3>, 2> notas {{
-								{4.9, 4.8, 5.0},
-								{4.8, 4.7, 4.9},
-							}};
-							for (int i = 0; i < notas.size(); ++i) {
-								cout << "Notas del estudiante " << i + 1 << ": ";
-								for (auto& nota : notas[i])
-									cout << nota << " ";
-								cout << '\n';
-							}
-							```
-
-							Salida del programa
-							```sh
-							Notas del estudiante 1: 4.9 4.8 5
-							Notas del estudiante 2: 4.8 4.7 4.9
-							```
-						</textarea>
-					</section>
-
-					<section data-markdown id="tipo-matriz-mejor">
-						<textarea data-template>
-							```cpp
-							struct Estudiante {
-								string nombre;
-								array<double, 3> notas;
-							};
-
-							array<Estudiante, 2> estudiantes {{
-								{"Kevin", {4.9, 4.8, 5.0}},
-								{"Andres", {4.8, 4.7, 4.9}},
-							}};
-
-							for (auto& est : estudiantes) {
-								cout << "Notas de " << est.nombre << ": ";
-								for (auto& nota : est.notas)
-									cout << nota << " ";
-								cout << '\n';
-							}
-							```
-
-							Salida del programa
-							```sh
-							Notas de Kevin: 4.9 4.8 5
-							Notas de Andres: 4.8 4.7 4.9
-							```
-						</textarea>
-					</section>
-				</section>
-
-				<section>
-					<section data-markdown id="tipo-lista">
-						<textarea data-template>
-							### Listas (segun Java)
-
-							En C++ el equivalente son los requerimientos para
-							[SequenceContainer](https://en.cppreference.com/w/cpp/named_req/SequenceContainer)
-
-							```cpp
-							vector<string> nombres;
-							nombres.push_back("Kevin");
-							nombres.push_back("Andres");
-
-							for (auto& nombre : nombres)
-								cout << "Hola " << nombre << "!\n";
-							```
-
-							Salida del programa
-							```sh
-							Hola Kevin!
-							Hola Andres!
-							```
-						</textarea>
-					</section>
-					<section id="tipo-lista-demo">
-						<iframe width="800px" height="400px" src="https://godbolt.org/e#g:!((g:!((g:!((h:codeEditor,i:(j:2,lang:c%2B%2B,source:'%23include+%3Ciostream%3E%0A%23include+%3Clist%3E%0A%23include+%3Cstring%3E%0A%23include+%3Cvector%3E%0A%0Ausing+namespace+std%3B%0A%0Aint+main()+%7B%0A++++vector%3Cstring%3E+nombres%3B%0A++++nombres.push_back(%22Kevin%22)%3B%0A++++nombres.push_back(%22Andres%22)%3B%0A%0A++++for+(auto%26+nombre+:+nombres)%0A++++++++cout+%3C%3C+%22Hola+%22+%3C%3C+nombre+%3C%3C+%22!!%5Cn%22%3B%0A%7D'),l:'5',n:'0',o:'C%2B%2B+source+%232',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:g91,compilerOutShown:'0',execArgs:'',execStdin:'',lang:c%2B%2B,libs:!(),options:'',source:2,stdinPanelShown:'1'),l:'5',n:'0',o:'x86-64+gcc+9.1+Executor+(Editor+%232)+C%2B%2B',t:'0')),header:(),k:50,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
-					</section>
-				</section>
-
-				<section data-markdown id="tipo-pila">
-					<textarea data-template>
-						### Pilas
-
-						```cpp
-						// Reversar un string
-						stack<char, vector<char>> caracteres;
-						caracteres.push('a');
-						caracteres.push('m');
-						caracteres.push('o');
-						caracteres.push('r');
-
-						while(!caracteres.empty()) {
-							cout << caracteres.top();
-							caracteres.pop();
-						}
-						```
-
-						Salida del programa
-						```sh
-						roma
-						```
-					</textarea>
-				</section>
-
-				<section data-markdown id="tipo-cola">
-					<textarea data-template>
-						### Colas
-
-						```cpp
-						queue<string, list<string>> personas;
-						personas.push("Andres");
-						personas.push("Blanca");
-						personas.push("Carolina");
-
-						while(!personas.empty()) {
-							cout << personas.front() << '\n'; // Atender a la persona
-							personas.pop();
-						}
-						```
-
-						Salida del programa
-						```sh
-						Andres
-						Blanca
-						Carolina
-						```
-					</textarea>
-				</section>
-
-				<section id="tipo-arbol">
 					<style>
 						.container{
 						    display: flex;
@@ -772,48 +562,182 @@
 						.col{
 						    flex: 1;
 						}
-						#tipo-arbol img {
-							border: none !important;
-							background-color: transparent !important;
-							box-shadow: none !important;
-						}
-						#tipo-arbol pre code {
-							max-height: 600px;
+
+						.tree-example .out {
+							min-height: 200px;
+							max-width: 400px;
+							max-height: 400px;
+							background-color: #272822;
+							font-family: monospace;
+							font-size: 12px;
+							word-wrap: break-word;
+							text-align: left;
+							overflow-y: auto;
+							white-space: pre;
 						}
 					</style>
+					<script type="text/javascript">
 
-					<h3>Arboles</h3>
-					<div class="container">
-						<div class="col" data-markdown>
-							<textarea data-template>
-								```cpp
-								// Arbol binario (no ordenado)
-								template<typename T>
-								struct Nodo {
-									T datos;
-									Nodo* izquierdo = nullptr;
-									Nodo* derecho = nullptr;
-								};
+					class Node {
+						constructor(data) {
+							this.data = data;
+							this.left = null;
+							this.right = null;
+						}
+					}
 
-								using NodoJ = Nodo<string>;
+					class BinarySearchTree {
+						constructor() {
+							this.root = null
+						}
 
-								NodoJ jefe {"Andres"};
+						insert(data) {
+							const newNode = new Node(data);
+					    if(this.root === null)
+								// Si el arbol está vacio insertar nodo como raiz
+				        this.root = newNode;
+					    else
+								// encontrar la posicion correcta e insertar
+								this.insertNode(this.root, newNode);
+						}
 
-								NodoJ sub1 {"Blanca"};
-								jefe.izquierdo = &amp;sub1;
+						insertNode(node, newNode) {
+						    if(newNode.data < node.data) {
+					        if(node.left === null)
+				            node.left = newNode;
+					        else
+				            this.insertNode(node.left, newNode);
+						    } else {
+					        if(node.right === null)
+				            node.right = newNode;
+					        else
+				            this.insertNode(node.right,newNode);
+						    }
+						}
 
-								NodoJ sub2 {"Carolina"};
-								jefe.derecho = &amp;sub2;
+						remove(data) {
+							// Se reasigna root en caso de que haya cambiado como resultado
+							// de remover el nodo
+					    this.root = this.removeNode(this.root, data);
+						}
 
-								NodoJ subsub {"David"};
-								sub1.derecho = &amp;subsub;
-								```
-							</textarea>
-						</div>
-						<div class="col">
-								<img src="lib/arbol.png">
-						</div>
-					</div>
+						removeNode(node, key) {
+					    if(node === null)
+				        return null;
+					    else if(key < node.data) {
+				        node.left = this.removeNode(node.left, key);
+				        return node;
+					    } else if(key > node.data) {
+				        node.right = this.removeNode(node.right, key);
+				        return node;
+					    } else {
+				        if(node.left === null && node.right === null) {
+			            node = null;
+			            return node;
+				        }
+
+								if(node.left === null) {
+			            node = node.right;
+			            return node;
+				        } else if(node.right === null) {
+			            node = node.left;
+			            return node;
+				        }
+
+				        const aux = this.findMinNode(node.right);
+				        node.data = aux.data;
+
+				        node.right = this.removeNode(node.right, aux.data);
+				        return node;
+					    }
+						}
+
+						// Escribe el arbol a consola en in-orden
+						inorder() {
+							return this.inorderNode(this.root)
+						}
+
+						inorderNode(node) {
+					    if(node !== null) {
+				        return this.inorderNode(node.left) +
+				        			 node.data + ' ' +
+				        			 this.inorderNode(node.right);
+					    }
+							return '';
+						}
+
+						// Encuentra el menor nodo en el arbol
+						findMinNode(node) {
+					    if(node.left === null)
+				        return node;
+					    else
+				        return this.findMinNode(node.left);
+						}
+
+						// Busca un nodo con el dato especificado
+						// Esto es busqueda binaria
+						searchNode(node, data) {
+						  // Arbol vacio -> null
+					    if(node === null)
+				        return null;
+
+					    // Si el dato es menor buscar a la izquierda
+					    else if(data < node.data)
+				        return this.searchNode(node.left, data);
+
+					    // Si es mayor buscar a la derecha
+					    else if(data > node.data)
+				        return this.searchNode(node.right, data);
+
+					    // Si es igual lo encontramos
+					    else
+				        return node;
+						}
+
+						search(data) {
+							return this.searchNode(this.root, data);
+						}
+					}
+
+					// Inicializacion de la estructura
+
+					const BST = new BinarySearchTree();
+
+					BST.insert(15);
+					BST.insert(25);
+					BST.insert(10);
+					BST.insert(7);
+					BST.insert(22);
+					BST.insert(17);
+					BST.insert(13);
+					BST.insert(5);
+					BST.insert(9);
+					BST.insert(27);
+
+					// Mostrar en pantalla
+					function actualizarArbolPantalla() {
+						const elem = document.querySelector('.tree-example .out')
+						let html = `Arbol In-Orden: ${BST.inorder()}\nArbol: `
+						html += JSON.stringify(BST, null, 2);
+						elem.innerHTML = html;
+					}
+
+					actualizarArbolPantalla()
+
+					// Al añadir
+					document.querySelector('.tree-example #add').addEventListener('click', () => {
+						const data = document.querySelector('.tree-example input').value
+						BST.insert(Number(data))
+						actualizarArbolPantalla()
+					})
+
+					//Al eliminar
+					document.querySelector('.tree-example #del').addEventListener('click', () => {
+						const data = document.querySelector('.tree-example input').value
+						BST.remove(Number(data))
+						actualizarArbolPantalla()
+					})
+					</script>
 				</section>
 
 				<section id="tipo-grafo">
