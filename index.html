@@ -30,75 +30,271 @@
 			<div class="slides">
 				<section data-markdown>
 					<textarea data-template>
-						# `struct` en el lenguaje C
+						# Estructuras de Datos Avanzadas
 
 						Presentado por Kevin Peña
 					</textarea>
 				</section>
 
-				<section data-markdown id="definicion">
+				<section data-markdown id="cola-pila">
 					<textarea data-template>
-						## Definición
+						## Cola y Pila
 
-						El módulo habla de struct especificamente en C pero el concepto se
-						puede generalizar a otros lenguajes.
+						Son estructuras de datos lineales caracterizadas por el orden que
+						tienen sus elementos en entrar y salir de la estructura.
 
-						> Estructura de datos heterogénea contigua en la que cada uno de sus
-						> miembros se identifica por un nombre.
+						- FIFO (Cola) <!-- .element: class="fragment" data-fragment-index="1" -->
+						- LIFO (Pila) <!-- .element: class="fragment" data-fragment-index="2" -->
 					</textarea>
 				</section>
 
-				<section>
-					<section data-markdown id="declaracion">
-						<textarea data-template>
-							## Declaración
-
-							```cpp
-							struct Persona {
-								array<char, 10> nombre;
-								int edad;
-							};
-							```
-							Ver [std::array](https://en.cppreference.com/w/cpp/container/array).
-							<!-- .element: class="small" -->
-
-						</textarea>
-					</section>
-
-					<section data-markdown id="declaracion-nota">
-						<textarea data-template>
-							## Nota
-
-							No voy a colocar los `#include` necesarios para que los ejemplos
-							funcionen.
-
-							Tambien asumire que estoy usando:
-
-							```cpp
-							using namespace std;
-							```
-						</textarea>
-					</section>
+				<section id="cola">
+					<h2>Cola</h2>
+					<ul>
+						<li>Su nombre es una analogía a una cola o fila en la vida real.</li>
+						<li>Es First In First Out (El primero en entrar es el primero en salir).</li>
+					</ul>
+					<style>
+						.queue-anim {
+							margin-top: 64px;
+							display: flex;
+							flex-direction: row;
+							justify-content: center;
+						}
+						.queue-anim .elem {
+							width: 48px;
+							height: 96px;
+							background-color: #eb4034;
+							border: 1px solid white;
+							margin: 4px;
+						}
+						.queue-anim .first {
+							opacity: 0;
+							transform: rotate(45deg);
+							transform-origin: right -50%;
+						}
+						.queue-anim.push {
+							transform: translateX(58px);
+							transition: all .25s ease-in;
+						}
+						.queue-anim.push .first {
+							transform: none;
+							opacity: 1;
+							transition: all .25s ease-in;
+						}
+						.queue-anim .last {
+							opacity: 1;
+							transform: none;
+							transform-origin: left 150%;
+						}
+						.queue-anim.pop .last {
+							opacity: 0;
+							transform: rotate(45deg);
+							transition: all .25s ease-in;
+						}
+					</style>
+					<div class="queue-anim">
+						<div class="elem first"></div>
+						<div class="elem"></div>
+						<div class="elem"></div>
+						<div class="elem"></div>
+						<div class="elem last"></div>
+					</div>
+					<script type="text/javascript">
+						function sleep(ms) {
+							return new Promise(resolve => setTimeout(resolve, ms))
+						}
+						async function queueAnim() {
+							const anim = document.querySelector('.queue-anim')
+							await sleep(2000)
+							while (true) {
+								anim.classList.add('push')
+								await sleep(1500)
+								anim.classList.add('pop')
+								await sleep(1000)
+								anim.classList.remove('pop', 'push')
+								await sleep(250)
+							}
+						}
+						queueAnim()
+					</script>
 				</section>
 
-				<section>
-					<section data-markdown id="inicializacion">
-						<textarea data-template>
-							## Inicialización
+				<section id="cola-ejemplo">
+					<h2>Ejemplo</h2>
+					<div class="queue-example">
+						<div class="add-task">
+							<input id="datos" type="text" placeholder="Datos de la tarea">
+							<input id="dificultad" type="text" placeholder="Dificultad">
+							<button>Agregar</button>
+						</div>
+						<div class="out-container">
+							<div>
+								<h5>Cola</h5>
+								<div class="queue"></div>
+							</div>
+							<div>
+								<h5>Tareas Finalizadas</h5>
+								<div class="completed"></div>
+							</div>
+						</div>
+					</div>
+					<style>
+						.queue-example .out-container {
+							display: flex;
+							flex-direction: row;
+							justify-content: space-around;
+						}
+						.queue-example .out-container > div {
+							flex: 1;
+							min-height: 200px;
+							max-width: 400px;
+							max-height: 300px;
+							background-color: #272822;
+							font-family: monospace;
+							font-size: 12px;
+							word-wrap: break-word;
+							text-align: left;
+							overflow-y: auto;
+						}
+					</style>
+					<script type="text/javascript" src="lib/js/sha256.min.js"></script>
+					<script type="text/javascript">
+						class Cola {
+							constructor() {
+								this.array = []
+							}
 
-							```cpp
-							Persona kevin {"Kevin", 23};
-							// o
-							auto kevin = Persona{"Kevin", 23};
-							```
-							Ver [aggregate initialization](https://en.cppreference.com/w/cpp/language/aggregate_initialization).
-							<!-- .element: class="small" -->
+							push(elem) {
+								this.array.unshift(elem)
+							}
 
-						</textarea>
-					</section>
-					<section>
-						<iframe width="800px" height="400px" src="https://godbolt.org/e#g:!((g:!((g:!((h:codeEditor,i:(j:1,lang:c%2B%2B,source:'%23include+%3Carray%3E%0A%23include+%3Ciostream%3E%0A%0Ausing+namespace+std%3B%0A%0Astruct+Persona+%7B%0A++array%3Cchar,+10%3E+nombre%3B%0A++int+edad%3B%0A%7D%3B%0A%0Aint+main()+%7B%0A++Persona+kevin+%7B%22Kevin%22,+23%7D%3B%0A++cout+%3C%3C+kevin.nombre.data()+%3C%3C+!'%5Cn!'%3B%0A%7D%3B'),l:'5',n:'0',o:'C%2B%2B+source+%231',t:'0')),k:50,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:g91,compilerOutShown:'0',execArgs:'',execStdin:'',lang:c%2B%2B,libs:!(),options:'-Os+-std%3Dc%2B%2B17',source:1,stdinPanelShown:'1'),l:'5',n:'0',o:'x86-64+gcc+9.1+Executor+(Editor+%231)+C%2B%2B',t:'0')),header:(),k:50,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4"></iframe>
-					</section>
+							pop() {
+								return this.array.pop()
+							}
+
+							peek() {
+								return this.array[this.array.length - 1]
+							}
+
+							empty() {
+								return this.array.length === 0
+							}
+						}
+
+						const cola = new Cola()
+
+						function agregarTarea(data, dificultad, onAvance) {
+							const tarea = new Tarea(data, dificultad, onAvance)
+
+							cola.push(tarea)
+							actualizarCola()
+						}
+
+						async function procesar() {
+							while (true) {
+								if (cola.empty()) {
+									await sleep(0)
+								} else {
+									const tareaAProcesar = cola.peek()
+									const resultado = await tareaAProcesar.ejecutar()
+									cola.pop()
+									agregarResultado(tareaAProcesar, resultado)
+									actualizarCola()
+								}
+							}
+						}
+
+						procesar()
+
+						// Detalles para mostrar resultados en pantalla
+
+						function agregarResultado(tarea, resultado) {
+							const resElem = document.querySelector('.queue-example .completed')
+							const p = document.createElement('p')
+							p.innerHTML = `${tarea.datos}${tarea.nonce} (${tarea.dificultad}): ${resultado}`
+							resElem.appendChild(p)
+						}
+
+						function actualizarCola() {
+							const resElem = document.querySelector('.queue-example .queue')
+							let html = ''
+							for (let i = 0; i < cola.array.length; ++i) {
+								const tarea = cola.array[i]
+								html += `<p>${tarea.datos} (${tarea.dificultad})`
+								if (i === (cola.array.length - 1)) {
+									html += '<span id="trabajo"></span>'
+								}
+								html += '</p>'
+							}
+							resElem.innerHTML = html;
+						}
+
+						document.querySelector('.queue-example button').addEventListener('click', () => {
+							const datos = document.querySelector('.queue-example #datos').value
+							const dificultad = Number(document.querySelector('.queue-example #dificultad').value)
+							const onAvance = (nonce, hash) => {
+								const resElem = document.querySelector('.queue-example #trabajo')
+								if (resElem) {
+									resElem.innerHTML = `${nonce}: ${hash}`
+								}
+							}
+
+							agregarTarea(datos, dificultad, onAvance)
+							actualizarCola()
+
+							document.querySelector('.queue-example #datos').value = ''
+							document.querySelector('.queue-example #dificultad').value = ''
+							document.querySelector('.queue-example #datos').focus()
+						})
+
+						function sleep(ms) {
+							return new Promise(resolve => setTimeout(resolve, ms))
+						}
+
+						class Tarea {
+							constructor(datos, dificultad, onAvance) {
+								this.datos = datos
+								this.dificultad = dificultad
+								this.onAvance = onAvance
+								this.nonce = -1
+							}
+
+							async ejecutar() {
+								let hash = null
+								do {
+									this.nonce++
+									hash = sha256.create();
+									hash.update(this.datos + String(this.nonce));
+									if (this.onAvance && this.nonce % 7 === 0) {
+										const binario = this.digestABinario(hash.digest())
+										this.onAvance(this.nonce, binario)
+									}
+									await sleep(0)
+								} while (!this.verificarRespuesta(hash.digest(), this.dificultad))
+								return this.digestABinario(hash.digest())
+							}
+
+							digestABinario(digest) {
+								let binario = ''
+								for (const byte of digest) {
+									binario += byte.toString(2).padStart(8, '0')
+								}
+								return binario
+							}
+
+							verificarRespuesta(hashDigest, dificultad) {
+								let binary = ''
+								let i = 0
+								do {
+									binary += hashDigest[i].toString(2).padStart(8, '0')
+									++i
+								} while (binary.length < dificultad)
+
+								return binary.startsWith('0'.repeat(dificultad))
+							}
+						}
+					</script>
 				</section>
 
 				<section data-markdown id="tamano">
