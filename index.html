@@ -297,18 +297,152 @@
 					</script>
 				</section>
 
-				<section data-markdown id="tamano">
+				<section data-markdown id="cola-codigo">
 					<textarea data-template>
-						## Tamaño
+						# Código
 
-						```cpp
-						// Recordemos
-						struct Persona {
-							array<char, 10> nombre;
-							int edad;
-						};
+						```js
+						class Cola {
+							constructor() {
+								this.array = []
+							}
+
+							push(elem) {
+								this.array.unshift(elem)
+							}
+
+							pop() {
+								return this.array.pop()
+							}
+
+							peek() {
+								return this.array[this.array.length - 1]
+							}
+
+							empty() {
+								return this.array.length === 0
+							}
+						}
+
+						const cola = new Cola()
+
+						function agregarTarea(data, dificultad, onAvance) {
+							const tarea = new Tarea(data, dificultad, onAvance)
+
+							cola.push(tarea)
+							actualizarCola()
+						}
+
+						async function procesar() {
+							while (true) {
+								if (cola.empty()) {
+									await sleep(0)
+								} else {
+									const tareaAProcesar = cola.peek()
+									const resultado = await tareaAProcesar.ejecutar()
+									cola.pop()
+									agregarResultado(tareaAProcesar, resultado)
+									actualizarCola()
+								}
+							}
+						}
+
+						procesar()
+
+						//
+						// Detalles para mostrar resultados en pantalla
+						//
+
+						function agregarResultado(tarea, resultado) {
+							const resElem = document.querySelector('.queue-example .completed')
+							const p = document.createElement('p')
+							p.innerHTML = `${tarea.datos}${tarea.nonce} (${tarea.dificultad}): ${resultado}`
+							resElem.appendChild(p)
+						}
+
+						function actualizarCola() {
+							const resElem = document.querySelector('.queue-example .queue')
+							let html = ''
+							for (let i = 0; i < cola.array.length; ++i) {
+								const tarea = cola.array[i]
+								html += `<p>${tarea.datos} (${tarea.dificultad})`
+								if (i === (cola.array.length - 1)) {
+									html += '<span id="trabajo"></span>'
+								}
+								html += '</p>'
+							}
+							resElem.innerHTML = html;
+						}
+
+						document.querySelector('.queue-example button').addEventListener('click', () => {
+							const datos = document.querySelector('.queue-example #datos').value
+							const dificultad = Number(document.querySelector('.queue-example #dificultad').value)
+							const onAvance = (nonce, hash) => {
+								const resElem = document.querySelector('.queue-example #trabajo')
+								if (resElem) {
+									resElem.innerHTML = `${nonce}: ${hash}`
+								}
+							}
+
+							agregarTarea(datos, dificultad, onAvance)
+							actualizarCola()
+
+							document.querySelector('.queue-example #datos').value = ''
+							document.querySelector('.queue-example #dificultad').value = ''
+							document.querySelector('.queue-example #datos').focus()
+						})
+
+						//
+						// Implementacion de la clase Tarea
+						//
+
+						function sleep(ms) {
+							return new Promise(resolve => setTimeout(resolve, ms))
+						}
+
+						class Tarea {
+							constructor(datos, dificultad, onAvance) {
+								this.datos = datos
+								this.dificultad = dificultad
+								this.onAvance = onAvance
+								this.nonce = -1
+							}
+
+							async ejecutar() {
+								let hash = null
+								do {
+									this.nonce++
+									hash = sha256.create();
+									hash.update(this.datos + String(this.nonce));
+									if (this.onAvance && this.nonce % 7 === 0) {
+										const binario = this.digestABinario(hash.digest())
+										this.onAvance(this.nonce, binario)
+									}
+									await sleep(0)
+								} while (!this.verificarRespuesta(hash.digest(), this.dificultad))
+								return this.digestABinario(hash.digest())
+							}
+
+							digestABinario(digest) {
+								let binario = ''
+								for (const byte of digest) {
+									binario += byte.toString(2).padStart(8, '0')
+								}
+								return binario
+							}
+
+							verificarRespuesta(hashDigest, dificultad) {
+								let binary = ''
+								let i = 0
+								do {
+									binary += hashDigest[i].toString(2).padStart(8, '0')
+									++i
+								} while (binary.length < dificultad)
+
+								return binary.startsWith('0'.repeat(dificultad))
+							}
+						}
 						```
-
 					</textarea>
 				</section>
 
