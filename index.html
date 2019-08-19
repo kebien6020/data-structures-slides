@@ -446,6 +446,84 @@
 					</textarea>
 				</section>
 
+				<section id="pila">
+					<h2>Pila</h2>
+					<ul>
+						<li>Su nombre es una analogía a apilar cosas en la vida real.</li>
+						<li>Es Last In First Out (El último en entrar es el primero en salir).</li>
+					</ul>
+					<style>
+						.stack-anim {
+							margin-top: 64px;
+							display: flex;
+							flex-direction: column;
+							align-items: center;
+						}
+						.stack-anim .elem {
+							width: 128px;
+							height: 48px;
+							background-color: #34a5eb;
+							border: 1px solid white;
+							margin: 4px;
+							transition: all .25s ease-out;
+						}
+						.stack-anim .elem.out {
+							opacity: 0;
+							transform: rotate(-45deg);
+							transition: none;
+						}
+						.stack-anim .elem.push {
+							opacity: 1;
+							transform: none;
+							transform-origin: -50% bottom;
+							transition-property: opacity, transform;
+						}
+
+						.stack-anim .elem.remove {
+							opacity: 0;
+							transform: rotate(45deg);
+							transform-origin: 150% bottom;
+							transition-property: opacity, transform;
+						}
+					</style>
+					<div class="stack-anim">
+						<div class="elem out"></div>
+						<div class="elem out"></div>
+						<div class="elem out"></div>
+						<div class="elem"></div>
+						<div class="elem"></div>
+					</div>
+					<script type="text/javascript">
+						function sleep(ms) {
+							return new Promise(resolve => setTimeout(resolve, ms))
+						}
+						async function stackAnim() {
+							const anim = document.querySelector('.stack-anim')
+							const elems = document.querySelectorAll('.stack-anim .elem')
+							await sleep(2000)
+							while (true) {
+								elems[2].className = 'elem push'
+								await sleep(1000)
+								elems[1].className = 'elem push'
+								await sleep(1000)
+								elems[0].className = 'elem push'
+								await sleep(3000)
+								elems[0].className = 'elem remove'
+								await sleep(1000)
+								elems[1].className = 'elem remove'
+								await sleep(1000)
+								elems[2].className = 'elem remove'
+								await sleep(500)
+								elems[0].className = 'elem out'
+								elems[1].className = 'elem out'
+								elems[2].className = 'elem out'
+								await sleep(2500)
+							}
+						}
+						stackAnim()
+					</script>
+				</section>
+
 				<section data-markdown id="tamano-illust">
 					<textarea data-template>
 						## Tamaño (gráficamente)
