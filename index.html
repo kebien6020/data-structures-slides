@@ -743,7 +743,7 @@
         <section data-markdown id="arbol-codigo">
           <textarea data-template>
             ## Código
-            
+
             ```js
             class Node {
               constructor(data) {
@@ -907,6 +907,72 @@
             ```
           </textarea>
         </section>
+
+        <section data-markdown id="grafo">
+          <textarea data-template>
+            ## Grafo
+
+            - Estructura de datos no lineal.
+            - No es estrictamente jerarquica.
+            - Compuesta de Nodos (o vertices) y Aristas.
+          </textarea>
+        </section>
+
+        <section data-markdown id="grafo-clasif">
+          <textarea data-template>
+            ## Clasificación
+
+            - Segun si sus aristas tienen dirección: Dirijido o no dirigido. <!-- .element: class="fragment" data-fragment-index="1" -->
+            - Según si contiene ciclos: Cíclico o Acíclico. <!-- .element: class="fragment" data-fragment-index="2" -->
+            - Según si pueden haber multiple aristas entre 2 nodos: Grafo o multigrafo. <!-- .element: class="fragment" data-fragment-index="3" -->
+          </textarea>
+        </section>
+
+        <section id="grafo-ejemplo">
+					<style>
+						#grafo-ejemplo img {
+							border: none !important;
+							background-color: transparent !important;
+							box-shadow: none !important;
+						}
+						#grafo-ejemplo pre code {
+							max-height: 600px;
+						}
+					</style>
+
+					<h3>Ejemplo</h3>
+					<div class="container">
+						<div class="col" data-markdown>
+							<textarea data-template>
+								```cpp
+								template <typename T>
+								struct Nodo {
+									T data;
+									vector<Nodo*> aristas;
+
+									void conectar(Nodo* otro)
+									{
+										aristas.push_back(otro);
+									}
+								};
+
+								Nodo<int> n1{1}, n2{2},
+								          n3{3}, n4{4};
+								n1.conectar(&n2);
+								n1.conectar(&n4);
+								n2.conectar(&n4);
+								n3.conectar(&n1);
+								n3.conectar(&n2);
+								n4.conectar(&n3);
+
+								```
+							</textarea>
+						</div>
+						<div class="col">
+								<img src="lib/grafo.png">
+						</div>
+					</div>
+				</section>
 
         <section id="punteros">
           <h2>Punteros</h2>
